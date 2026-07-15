@@ -1,6 +1,6 @@
 <template>
-  <footer class="bg-gray-800 text-white p-6 sm:p-8">
-    <div class="max-w-7xl mx-auto">
+  <footer class="bg-gray-800 text-white py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="text-2xl sm:text-3xl uppercase font-serif font-bold mb-8 text-center">
         Sunbeach Hotel
       </div>

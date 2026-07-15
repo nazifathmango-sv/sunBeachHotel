@@ -1,11 +1,27 @@
 <template>
-  <div class="carousel" @mouseenter="stopAutoplay" @mouseleave="startAutoplay">
-    <div class="viewport">
-      <div class="track" :style="trackStyle">
-        <div class="slide" v-for="(item, index) in testimonials" :key="index">
-          <div class="card">
-            <p class="message">"{{ item.message }}"</p>
-            <h3>
+  <div
+    class="relative max-w-4xl mx-auto px-4 sm:px-12 py-10"
+    @mouseenter="stopAutoplay"
+    @mouseleave="startAutoplay"
+  >
+    <div class="overflow-hidden">
+      <div
+        class="flex transition-transform duration-700 ease-in-out"
+        :style="{ transform: `translateX(-${current * 100}%)` }"
+      >
+        <div
+          v-for="(item, index) in testimonials"
+          :key="index"
+          class="min-w-full flex justify-center"
+        >
+          <div
+            class="w-full sm:w-4/5 bg-amber-50 rounded-3xl p-8 sm:p-10 text-center"
+          >
+            <p class="text-lg sm:text-xl italic font-serif text-gray-700 leading-relaxed">
+              "{{ item.message }}"
+            </p>
+            <div class="w-16 h-1 bg-amber-300 mx-auto my-5"></div>
+            <h3 class="text-lg font-bold font-serif text-gray-800">
               {{ item.name }}
             </h3>
           </div>
@@ -13,15 +29,29 @@
       </div>
     </div>
 
-    <button class="nav prev" @click="prev">‹</button>
+    <button
+      class="absolute left-0 sm:-left-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-200 text-black text-2xl font-bold flex items-center justify-center shadow-md hover:bg-amber-300 transition cursor-pointer"
+      aria-label="Témoignage précédent"
+      @click="prev"
+    >
+      ‹
+    </button>
 
-    <button class="nav next" @click="next">›</button>
+    <button
+      class="absolute right-0 sm:-right-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-200 text-black text-2xl font-bold flex items-center justify-center shadow-md hover:bg-amber-300 transition cursor-pointer"
+      aria-label="Témoignage suivant"
+      @click="next"
+    >
+      ›
+    </button>
 
-    <div class="dots">
+    <div class="flex justify-center gap-2 mt-6">
       <button
         v-for="(_, i) in testimonials"
         :key="i"
-        :class="{ active: i === current }"
+        class="w-2.5 h-2.5 rounded-full transition-colors cursor-pointer"
+        :class="i === current ? 'bg-amber-300' : 'bg-gray-300'"
+        :aria-label="`Aller au témoignage ${i + 1}`"
         @click="goTo(i)"
       ></button>
     </div>
@@ -29,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 interface Testimonial {
   name: string
@@ -43,10 +73,6 @@ const props = defineProps<{
 const current = ref(0)
 
 let timer: number | null = null
-
-const trackStyle = computed(() => ({
-  transform: `translateX(-${current.value * 100}%)`,
-}))
 
 function next() {
   current.value = (current.value + 1) % props.testimonials.length
@@ -84,90 +110,3 @@ onBeforeUnmount(() => {
   stopAutoplay()
 })
 </script>
-<style coped>
-.carousel {
-  position: relative;
-  overflow: hidden;
-  padding: 40px 0;
-}
-
-.viewport {
-  overflow: hidden;
-}
-
-.track {
-  display: flex;
-  transition: transform 1s ease;
-}
-
-.slide {
-  min-width: 100%;
-  display: flex;
-  justify-content: center;
-  height: auto;
-}
-
-.card {
-  width: 70%;
-  padding: 35px;
-  background:rgb(243, 234, 180);
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-}
-
-.message {
-  font-size: 18px;
-  font-style: italic;
-  line-height: 2;
-}
-
-.card h3 {
-  margin-top: 20px;
-}
-
-.nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 40px;
-  height: 40px;
-
-  border-radius: 50%;
-  border:none;
-
-  cursor: pointer;
-}
-
-.prev {
-  left: 15px;
-  font-size: 40px;
-  font-weight: 900;
-}
-
-.next {
-  right: 15px;
-  font-size: 40px;
-  font-weight: 900;
-}
-
-.dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.dots button {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: none;
-  background: #ccc;
-}
-
-.dots button.active {
-  background: black;
-}
-</style>

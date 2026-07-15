@@ -7,8 +7,9 @@
       <div class="absolute inset-0 bg-black/40"></div>
 
       <div
-        class="relative z-10 px-6 sm:px-12 lg:px-20 text-white max-w-4xl"
+        class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full text-white"
       >
+        <div class="max-w-4xl">
         <p class="text-xl sm:text-3xl font-serif italic mb-3">
          BIENVENUE À
         </p>
@@ -29,9 +30,10 @@
         >
          Réservez Maintenant
         </button>
+        </div>
       </div>
     </div>
-    <div class="py-20 px-6">
+    <div class="py-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <h2
         class="text-5xl text-center font-serif font-bold text-gray-700"
       >
@@ -49,15 +51,21 @@
       </p>
 
     </div>
-    <div class="px-6 lg:px-20 pb-20 space-y-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 space-y-20">
       <div
       v-for="(chambre, index) in chambres"
         :key="chambre.id"
-         class="flex flex-col lg:flex-row items-center bg-white rounded-3xl shadow-2xl overflow-hidden"
+         class="relative flex flex-col lg:flex-row items-center bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[450px]"
   :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''"
 >
         <div
+          class="absolute inset-0 bg-cover bg-center lg:hidden"
+          :style="{ backgroundImage: `url(${chambre.image})` }"
+        ></div>
+        <div class="absolute inset-0 bg-black/50 lg:hidden"></div>
+        <div
           class="
+          relative z-10
           lg:w-1/2
           flex flex-col justify-center items-center
           text-center
@@ -70,7 +78,7 @@
             font-serif
             italic
             font-bold
-            text-gray-800
+            text-white lg:text-gray-800
             "
           >
             {{ chambre.titre }}
@@ -78,7 +86,7 @@
           <div class="w-20 h-1 bg-amber-300 my-6"></div>
           <p
             class="
-            text-gray-600
+            text-white lg:text-gray-600
             text-lg
             leading-relaxed
             "
@@ -91,7 +99,7 @@
           Explore Room
           </button>
         </div>
-        <div class="lg:w-1/2">
+        <div class="hidden lg:block lg:w-1/2">
 
           <img
             :src="chambre.image" :alt="chambre.titre" class=" w-full h-[450px] object-cover   object-contain hover:scale-105 transition duration-700 "
@@ -99,7 +107,7 @@
         </div>
       </div>
     </div>
-    <div class=" py-20">
+    <div class="py-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <h2 class="text-4xl text-center font-serif font-bold text-gray-700">
     Nos Témoignages
       </h2>

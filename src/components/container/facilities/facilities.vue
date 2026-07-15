@@ -5,7 +5,8 @@
       :style="{ backgroundImage: `url(${ImFond})` }"
     >
       <div class="absolute inset-0 bg-black/"></div>
-      <div class="relative z-10 px-6 sm:px-12 lg:px-20 text-white max-w-4xl">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full text-white">
+        <div class="max-w-4xl">
         <p class="text-xl sm:text-3xl font-serif italic mb-3">BIENVENUE À</p>
 
         <h1 class="uppercase font-bold text-5xl sm:text-7xl lg:text-6xl font-serif tracking-wide">
@@ -20,9 +21,10 @@
         >
           Réservez Maintenant
         </button>
+        </div>
       </div>
     </div>
-    <div class="py-20 px-6">
+    <div class="py-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <h2 class="text-4xl text-center font-bold font-serif text-gray-500">Nos Installations</h2>
       <div class="flex justify-center mt-5">
         <div class="w-24 h-1 bg-amber-200"></div>
@@ -38,15 +40,20 @@
        <div
     v-for="(chambre, index) in chambres"
     :key="chambre.id"
-   class="flex flex-col lg:flex-row items-center bg-white rounded-3xl shadow-2xl overflow-hidden"
+   class="relative flex flex-col lg:flex-row items-center bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[450px]"
      :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''"
 >
-          <div class="lg:w-1/2 p-10 flex flex-col items-center text-center">
-            <h3 class="text-4xl font-bold italic font-serif mb-6 text-gray-800">
+          <div
+            class="absolute inset-0 bg-cover bg-center lg:hidden"
+            :style="{ backgroundImage: `url(${chambre.image})` }"
+          ></div>
+          <div class="absolute inset-0 bg-black/50 lg:hidden"></div>
+          <div class="relative z-10 lg:w-1/2 p-10 flex flex-col items-center text-center">
+            <h3 class="text-4xl font-bold italic font-serif mb-6 text-white lg:text-gray-800">
               {{ chambre.titre }}
             </h3>
             <div class="w-20 h-1 bg-amber-200 mb-6"></div>
-            <p class="text-gray-600 text-lg leading-relaxed">
+            <p class="text-white lg:text-gray-600 text-lg leading-relaxed">
               {{ chambre.description }}
             </p>
             <button
@@ -55,7 +62,7 @@
               Explorer
             </button>
           </div>
-          <div class="lg:w-1/2">
+          <div class="hidden lg:block lg:w-1/2">
             <img :src="chambre.image" :alt="chambre.titre" class="w-full h-[450px] object-cover" />
           </div>
         </div>

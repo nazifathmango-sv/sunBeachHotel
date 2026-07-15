@@ -5,8 +5,9 @@
       :style="{ backgroundImage: `url(${ImFond1})`}"
     >
      <div
-        class="relative z-10 px-6 sm:px-12 lg:px-20 text-white max-w-4xl"
+        class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full text-white"
       >
+        <div class="max-w-4xl">
         <p class="text-xl sm:text-3xl font-serif italic mb-3">
         BIENVENUE À
         </p>
@@ -28,9 +29,10 @@
         >
           Réservez Maintenant
         </button>
+        </div>
       </div>
     </div>
-<div class="py-20 px-6">
+<div class="py-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <h2
         class="text-4xl text-center font-bold font-serif text-gray-500"
       >
