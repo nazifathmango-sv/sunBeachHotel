@@ -1,18 +1,18 @@
 <template>
   <div class="fixed top-0 left-0 w-full z-[100] bg-black/30 backdrop-blur-sm">
     <div class="flex justify-between items-center max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="rounded-b-3xl bg-amber-200 p-3 md:p-5 py-5 md:py-6 text-black cursor-pointer">
         <RouterLink to="/" @click="isOpen = false">
-          SunBeach Hotel
+          <div class="rounded-b-3xl bg-amber-200 p-3 md:p-5 py-5 md:py-6 text-black cursor-pointer font-bold transition hover:scale-105 hover:border-amber-200">
+              SunBeach Hotel
+          </div>
         </RouterLink>
-      </div>
 
       <!-- Desktop nav -->
-      <div class="hidden md:flex gap-x-10 text-white text-lg font-serif">
-        <RouterLink to="/">Accueil</RouterLink>
-        <RouterLink to="/facilities">Services</RouterLink>
-        <RouterLink to="/rooms">Chambres</RouterLink>
-        <RouterLink to="/aboutUs">À Propos</RouterLink>
+      <div class="hidden md:flex gap-x-10 text-amber-200 text-lg font-serif">
+        <RouterLink class="hover:border-b-2 transition hover:scale-105 hover:border-amber-200" to="/">Accueil</RouterLink>
+        <RouterLink class="hover:border-b-2 transition hover:scale-105 hover:border-amber-200" to="/facilities">Services</RouterLink>
+        <RouterLink class="hover:border-b-2 transition hover:scale-105 hover:border-amber-200" to="/rooms">Chambres</RouterLink>
+        <RouterLink class="hover:border-b-2 transition hover:scale-105 hover:border-amber-200" to="/aboutUs">À Propos</RouterLink>
       </div>
 
       <!-- Burger button -->

@@ -26,7 +26,7 @@
         </p>
         <button
           class="mt-8 cursor-pointer  bg-amber-200  text-black
-          px-10 py-4 rounded-full font-bold text-lg"
+          px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
          Réservez Maintenant
         </button>
@@ -94,7 +94,7 @@
             {{ chambre.description }}
           </p>
           <button
-            class="mt-8 bg-amber-200 cursor-pointer  text-black px-10 py-3 rounded-full "
+            class="mt-8 bg-amber-200 cursor-pointer  text-black px-10 py-3 rounded-full border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
           >
           Explore Room
           </button>
@@ -140,7 +140,7 @@
 
 import ImgFond from '@/assets/img/Img2.webp'
 import ImgRoom1 from '@/assets/img/img_room1.webp'
-import ImgRoom2 from '@/assets/img/Img.webp'
+import ImgRoom2 from '@/assets/img/vue.webp'
 
 
 const chambres = [

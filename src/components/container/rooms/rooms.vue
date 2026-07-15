@@ -25,7 +25,7 @@
         </p>
         <button
           class="mt-8 cursor-pointer  bg-amber-200  text-black
-          px-10 py-4 rounded-full font-bold text-lg"
+          px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
           Réservez Maintenant
         </button>
@@ -73,7 +73,7 @@
       </p>
       <button
         @click="openModal(chambre)"
-        class="mt-6 bg-amber-200 text-black font-bold px-8 py-3 rounded-full cursor-pointer"
+        class="mt-6 bg-amber-200 text-black font-bold px-8 py-3 rounded-full cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
       >
         VOIR PLUS
       </button>
@@ -141,14 +141,14 @@
     </div>
     <div class="flex justify-center gap-4 mt-10">
       <button
-        class="bg-amber-200 px-8 py-3 rounded-full font-bold "
+        class="bg-amber-200 px-8 py-3 rounded-full font-bold cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
       >
         Réserver
       </button>
 
       <button
         @click="closeModal"
-        class=" bg-amber-200 px-8 py-3 rounded-full font-bold "
+        class=" bg-amber-200 px-8 py-3 rounded-full font-bold cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
       >
         Fermer
       </button>

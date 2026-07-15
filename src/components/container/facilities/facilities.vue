@@ -17,7 +17,7 @@
           inoubliable commence ici.
         </p>
         <button
-          class="mt-8 cursor-pointer bg-amber-200 text-black px-10 py-4 rounded-full font-bold text-lg"
+          class="mt-8 cursor-pointer bg-amber-200 text-black px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
           Réservez Maintenant
         </button>
@@ -57,7 +57,7 @@
               {{ chambre.description }}
             </p>
             <button
-              class="mt-8 bg-amber-200 cursor-pointer px-8 py-3 rounded-full text-black font-bold shadow-md"
+              class="mt-8 bg-amber-200 cursor-pointer px-8 py-3 rounded-full text-black font-bold shadow-md border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
             >
               Explorer
             </button>

@@ -42,7 +42,7 @@
             adresse@gmail.com
           </p>
           <button
-            class="mt-4 self-start bg-amber-200 cursor-pointer text-black px-10 py-3 rounded-full font-bold shadow-md hover:bg-amber-300 transition"
+            class="mt-4 self-start bg-amber-200 cursor-pointer text-black px-10 py-3 rounded-full font-bold shadow-md border-2 border-transparent transition hover:bg-amber-300 hover:scale-105 hover:border-amber-200"
           >
             VOIR LA CARTE
           </button>
@@ -78,7 +78,7 @@
               ></textarea>
             </div>
             <button
-              class="mt-2 self-start bg-amber-200 cursor-pointer text-black px-10 py-3 rounded-full font-bold shadow-md hover:bg-amber-300 transition"
+              class="mt-2 self-start bg-amber-200 cursor-pointer text-black px-10 py-3 rounded-full font-bold shadow-md border-2 border-transparent transition hover:bg-amber-300 hover:scale-105 hover:border-amber-200"
             >
               Envoyer le Message
             </button>
