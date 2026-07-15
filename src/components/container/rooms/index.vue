@@ -3,6 +3,7 @@
       <Heade />
         <Rooms />
        <Carrousel :testimonials="testimonials" />
+        <Popup />
       <Foote />
     </div>
 </template>
@@ -10,8 +11,9 @@
   import Heade from '@/components/helper/header.vue'
   import Rooms from '@/components/container/rooms/rooms.vue'
   import Foote from '@/components/helper/footer.vue'
- import Carrousel from '@/components/helper/carrousel.vue'
- const testimonials = [
+  import Carrousel from '@/components/helper/carrousel.vue'
+  import Popup from '@/components/helper/popup.vue'
+const testimonials = [
   {
     name: "Sophie Martin",
     role: "Cliente",

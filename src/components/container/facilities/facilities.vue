@@ -35,11 +35,12 @@
         privilégiés pour chacun. Retour
       </p>
       <div class="mt-20 space-y-24">
-        <div
-          v-for="chambre in chambres"
-          :key="chambre.id"
-          class="flex flex-col lg:flex-row items-center gap-0 bg-white rounded-3xl shadow-2xl overflow-hidden"
-        >
+       <div
+    v-for="(chambre, index) in chambres"
+    :key="chambre.id"
+   class="flex flex-col lg:flex-row items-center bg-white rounded-3xl shadow-2xl overflow-hidden"
+     :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''"
+>
           <div class="lg:w-1/2 p-10 flex flex-col items-center text-center">
             <h3 class="text-4xl font-bold italic font-serif mb-6 text-gray-800">
               {{ chambre.titre }}
@@ -67,7 +68,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import ImFond from '@/assets/img/essai8.webp'
+import ImFond from '@/assets/img/Img3.webp'
 import Img5 from '@/assets/img/room_1.webp'
 import spa from '@/assets/img/img_spa3.webp'
 import jeu from '@/assets/img/img_jeu1.webp'

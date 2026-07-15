@@ -2,7 +2,7 @@
     <div class="">
       <Heade />
       <Facilities />
-      <Carrousel :testimonials="testimonials" />
+      <Carrousel :testimonials="testimonials"/>
       <Foote />
     </div>
 </template>
@@ -11,7 +11,8 @@
   import Facilities from '@/components/container/facilities/facilities.vue'
   import Foote from '@/components/helper/footer.vue'
  import Carrousel from '@/components/helper/carrousel.vue'
- const testimonials = [
+
+  const testimonials = [
   {
     name: "Sophie Martin",
     role: "Cliente",

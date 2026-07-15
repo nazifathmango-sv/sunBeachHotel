@@ -35,7 +35,7 @@
       <h2
         class="text-5xl text-center font-serif font-bold text-gray-700"
       >
-        WELCOME
+        BIENVENUE
       </h2>
       <div class="flex justify-center mt-5">
         <span class="w-24 h-1 bg-amber-200 rounded"></span>
@@ -51,15 +51,11 @@
     </div>
     <div class="px-6 lg:px-20 pb-20 space-y-20">
       <div
-        v-for="chambre in chambres"
+      v-for="(chambre, index) in chambres"
         :key="chambre.id"
-        class="
-        flex flex-col lg:flex-row
-        bg-white rounded-3xl overflow-hidden
-        shadow-xl hover:shadow-2xl
-        transition duration-500
-        "
-      >
+         class="flex flex-col lg:flex-row items-center bg-white rounded-3xl shadow-2xl overflow-hidden"
+  :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''"
+>
         <div
           class="
           lg:w-1/2
@@ -98,14 +94,14 @@
         <div class="lg:w-1/2">
 
           <img
-            :src="chambre.image" :alt="chambre.titre" class=" w-full h-[450px] object-cover hover:scale-105 transition duration-700 "
+            :src="chambre.image" :alt="chambre.titre" class=" w-full h-[450px] object-cover   object-contain hover:scale-105 transition duration-700 "
           />
         </div>
       </div>
     </div>
     <div class=" py-20">
       <h2 class="text-4xl text-center font-serif font-bold text-gray-700">
-        Our testimonials
+    Nos Témoignages
       </h2>
       <div class="flex justify-center mt-5">
         <span class="w-20 h-1 bg-amber-200"></span>
@@ -134,8 +130,9 @@
 
 <script setup lang="ts">
 
-import ImgFond from '@/assets/img/luxuryHotel.webp'
+import ImgFond from '@/assets/img/Img2.webp'
 import ImgRoom1 from '@/assets/img/img_room1.webp'
+import ImgRoom2 from '@/assets/img/Img.webp'
 
 
 const chambres = [
@@ -154,7 +151,7 @@ id:2,
 titre:'Ocean Room',
 description:
 "Réveillez-vous avec une vue exceptionnelle sur la mer et profitez d'une expérience unique dans un cadre luxueux.",
-image:ImgRoom1
+image:ImgRoom2
 }
 
 ]
