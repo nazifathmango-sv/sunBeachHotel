@@ -24,6 +24,7 @@
           Votre séjour inoubliable commence ici.
         </p>
         <button
+          @click="redirectToLogin"
           class="mt-8 cursor-pointer  bg-amber-200  text-black
           px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
@@ -72,7 +73,7 @@
         {{ chambre.description }}
       </p>
       <button
-        @click="openModal(chambre)"
+        @click="redirectToLogin(chambre.id)"
         class="mt-6 bg-amber-200 text-black font-bold px-8 py-3 rounded-full cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
       >
         VOIR PLUS
@@ -160,9 +161,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import ImFond1 from '@/assets/img/essai1.webp'
 import Im1 from '@/assets/img/img_room2.webp'
+
+const router = useRouter()
+const route = useRoute()
 const selectedRoom = ref<any>(null)
 const showModal = ref(false)
 
@@ -174,6 +179,39 @@ const openModal = (room: any) => {
 const closeModal = () => {
   showModal.value = false
 }
+
+const redirectToLogin = (roomId?: number | MouseEvent) => {
+  const query: Record<string, string> = { redirect: '/rooms' }
+  if (typeof roomId === 'number') {
+    query.roomId = roomId.toString()
+  }
+  router.push({ name: 'login', query })
+}
+
+const openRoomFromQuery = () => {
+  const roomId = route.query.roomId
+  if (!roomId) return
+  const id = Number(roomId)
+  if (!Number.isFinite(id)) return
+  const room = rooms.find((r) => r.id === id)
+  if (room) {
+    openModal(room)
+  }
+}
+
+onMounted(() => {
+  openRoomFromQuery()
+})
+
+watch(
+  () => route.query.roomId,
+  () => {
+    if (route.name === 'rooms') {
+      openRoomFromQuery()
+    }
+  }
+)
+
 const rooms = [
     {
   id: 1,

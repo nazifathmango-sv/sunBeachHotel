@@ -17,6 +17,7 @@
           inoubliable commence ici.
         </p>
         <button
+          @click="redirectToLogin"
           class="mt-8 cursor-pointer bg-amber-200 text-black px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
           Réservez Maintenant
@@ -57,6 +58,7 @@
               {{ chambre.description }}
             </p>
             <button
+              @click="redirectToLogin"
               class="mt-8 bg-amber-200 cursor-pointer px-8 py-3 rounded-full text-black font-bold shadow-md border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
             >
               Explorer
@@ -75,6 +77,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
 import ImFond from '@/assets/img/Img3.webp'
 import Img5 from '@/assets/img/room_1.webp'
 import spa from '@/assets/img/img_spa3.webp'
@@ -83,6 +86,12 @@ import Img1 from '@/assets/img/img_manger2.webp'
 import Img2 from '@/assets/img/img_fete1.webp'
 import Img3 from '@/assets/img/Sport1.webp'
 import Img4 from '@/assets/img/Boite1.webp'
+
+const router = useRouter()
+const route = useRoute()
+const redirectToLogin = () => {
+  router.push({ name: 'login', query: { redirect: route.path } })
+}
 const chambres = [
   {
     id: 1,

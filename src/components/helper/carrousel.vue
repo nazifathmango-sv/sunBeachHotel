@@ -15,7 +15,7 @@
           class="min-w-full flex justify-center"
         >
           <div
-            class="w-full sm:w-4/5 bg-amber-50 rounded-3xl p-8 sm:p-10 text-center"
+            class="w-full sm:w-4/5 bg-amber-50 rounded-7xl p-8 sm:p-10 text-center"
           >
             <p class="text-lg sm:text-xl italic font-serif text-gray-700 leading-relaxed">
               "{{ item.message }}"
