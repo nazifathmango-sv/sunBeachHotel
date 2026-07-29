@@ -58,7 +58,7 @@
               {{ chambre.description }}
             </p>
             <button
-              @click="redirectToLogin"
+              @click="chambre.id === 1 ? redirectToRooms() : redirectToLogin()"
               class="mt-8 bg-amber-200 cursor-pointer px-8 py-3 rounded-full text-black font-bold shadow-md border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
             >
               Explorer
@@ -91,6 +91,9 @@ const router = useRouter()
 const route = useRoute()
 const redirectToLogin = () => {
   router.push({ name: 'login', query: { redirect: route.path } })
+}
+const redirectToRooms = () => {
+  router.push({ name: 'rooms' })
 }
 const chambres = [
   {
