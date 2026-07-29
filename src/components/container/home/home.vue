@@ -25,7 +25,7 @@
           Vivez une expérience luxueuse entre océan, confort et élégance. Votre séjour inoubliable commence ici.
         </p>
         <button
-          @click="redirectToLogin"
+          @click="redirectToRooms"
           class="mt-8 cursor-pointer  bg-amber-200  text-black
           px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
@@ -95,7 +95,7 @@
             {{ chambre.description }}
           </p>
           <button
-            @click="redirectToLogin"
+            @click="redirectToRooms"
             class="mt-8 bg-amber-200 cursor-pointer  text-black px-10 py-3 rounded-full border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
           >
             Explore Room
@@ -143,8 +143,8 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
-const redirectToLogin = () => {
-  router.push({ name: 'login', query: { redirect: route.path } })
+const redirectToRooms = () => {
+  router.push({ name: 'rooms' })
 }
 
 import ImgFond from '@/assets/img/Img2.webp'
