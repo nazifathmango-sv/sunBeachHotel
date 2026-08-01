@@ -17,7 +17,7 @@
           inoubliable commence ici.
         </p>
         <button
-          @click="redirectToLogin"
+          @click="openReservation('Service SunBeach Hotel')"
           class="mt-8 cursor-pointer bg-amber-200 text-black px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
           Réservez Maintenant
@@ -58,7 +58,7 @@
               {{ chambre.description }}
             </p>
             <button
-              @click="chambre.id === 1 ? redirectToRooms() : redirectToLogin()"
+              @click="chambre.id === 1 ? redirectToRooms() : openReservation(chambre.titre)"
               class="mt-8 bg-amber-200 cursor-pointer px-8 py-3 rounded-full text-black font-bold shadow-md border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
             >
               Explorer
@@ -74,10 +74,25 @@
         <span class="w-20 h-1 bg-amber-200"></span>
       </div>
     </div>
+    <ReservationPopup
+      :isOpen="reservationOpen"
+      :itemName="reservationItemName"
+      @close="reservationOpen = false"
+      @submit="handleReservationSubmit"
+    />
+    <ReservationStatusPopup
+      :isOpen="statusOpen"
+      :success="statusSuccess"
+      :message="statusMessage"
+      @close="statusOpen = false"
+    />
   </div>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '@/firebase'
 import ImFond from '@/assets/img/Img3.webp'
 import Img5 from '@/assets/img/room_1.webp'
 import spa from '@/assets/img/img_spa3.webp'
@@ -86,14 +101,51 @@ import Img1 from '@/assets/img/img_manger2.webp'
 import Img2 from '@/assets/img/img_fete1.webp'
 import Img3 from '@/assets/img/Sport1.webp'
 import Img4 from '@/assets/img/Boite1.webp'
+import ReservationPopup from '@/components/helper/ReservationPopup.vue'
+import ReservationStatusPopup from '@/components/helper/ReservationStatusPopup.vue'
 
 const router = useRouter()
 const route = useRoute()
-const redirectToLogin = () => {
-  router.push({ name: 'login', query: { redirect: route.path } })
-}
+const reservationOpen = ref(false)
+const reservationItemName = ref('')
+const statusOpen = ref(false)
+const statusSuccess = ref(true)
+const statusMessage = ref('')
 const redirectToRooms = () => {
   router.push({ name: 'rooms' })
+}
+const openReservation = (itemName: string) => {
+  reservationItemName.value = itemName
+  reservationOpen.value = true
+}
+const handleReservationSubmit = async (payload: { itemName: string; name: string; email: string; phone: string; details: string }) => {
+  console.log('Soumission réservation:', payload)
+  console.log('Firebase DB instance:', db)
+  try {
+    const reservationsCol = collection(db, 'reservations')
+    console.log('Collection reference:', reservationsCol)
+    const docRef = await addDoc(reservationsCol, {
+      itemName: payload.itemName,
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone,
+      details: payload.details,
+      createdAt: serverTimestamp()
+    })
+    console.log('Réservation enregistrée, id:', docRef.id)
+    reservationOpen.value = false
+    statusSuccess.value = true
+    statusMessage.value = `Votre réservation pour "${payload.itemName}" a été enregistrée avec succès.`
+    statusOpen.value = true
+    window.alert(statusMessage.value)
+  } catch (error) {
+    console.error('Erreur Firebase:', error)
+    reservationOpen.value = false
+    statusSuccess.value = false
+    statusMessage.value = error instanceof Error ? error.message : 'Impossible d\'enregistrer votre réservation pour le moment. Veuillez réessayer plus tard.'
+    statusOpen.value = true
+    window.alert(statusMessage.value)
+  }
 }
 const chambres = [
   {

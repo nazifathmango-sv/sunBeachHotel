@@ -2,24 +2,31 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
-// ÉTAPE INDISPENSABLE : Importer Firestore (base de données) et Authentication !
+// ÉTAPE INDISPENSABLE : Importer Firestore (base de données)
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 
 // Vos clés de configuration Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBNx1ZYkKDmHB8Ok8_77PxgSEgnmD4a_9I",
-  authDomain: "sunbeachhotel-3f51b.firebaseapp.com",
-  projectId: "sunbeachhotel-3f51b",
-  storageBucket: "sunbeachhotel-3f51b.firebasestorage.app",
-  messagingSenderId: "709682936331",
-  appId: "1:709682936331:web:2e6d3207210274313ca50e",
-  measurementId: "G-JVYE5VBVWJ"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || ''
 };
+
+if (!firebaseConfig.projectId) {
+  console.warn('Firebase projectId is manquant. Vérifie ton fichier .env ou tes variables d\'environnement.');
+}
 
 // Initialisation de Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+console.log('Firebase initialisé:', {
+  projectId: firebaseConfig.projectId,
+  databaseURL: firebaseConfig.databaseURL,
+});
+
+export { db };

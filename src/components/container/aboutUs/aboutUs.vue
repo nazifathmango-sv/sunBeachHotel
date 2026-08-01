@@ -42,7 +42,7 @@
             adresse@gmail.com
           </p>
           <button
-            @click="redirectToLogin"
+            @click="redirectToRooms"
             class="mt-4 self-start bg-amber-200 cursor-pointer text-black px-10 py-3 rounded-full font-bold shadow-md border-2 border-transparent transition hover:bg-amber-300 hover:scale-105 hover:border-amber-200"
           >
             VOIR LA CARTE
@@ -79,7 +79,7 @@
               ></textarea>
             </div>
             <button
-              @click="redirectToLogin"
+              @click="redirectToRooms"
               class="mt-2 self-start bg-amber-200 cursor-pointer text-black px-10 py-3 rounded-full font-bold shadow-md border-2 border-transparent transition hover:bg-amber-300 hover:scale-105 hover:border-amber-200"
             >
               Envoyer le Message
@@ -118,11 +118,10 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const route = useRoute()
-const redirectToLogin = () => {
-  router.push({ name: 'login', query: { redirect: route.path } })
+const redirectToRooms = () => {
+  router.push({ name: 'rooms' })
 }
 </script>

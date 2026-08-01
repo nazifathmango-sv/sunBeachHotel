@@ -24,7 +24,7 @@
           Votre séjour inoubliable commence ici.
         </p>
         <button
-          @click="redirectToLogin"
+          @click="openReservation('Réservation SunBeach Hotel')"
           class="mt-8 cursor-pointer  bg-amber-200  text-black
           px-10 py-4 rounded-full font-bold text-lg border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
         >
@@ -72,12 +72,20 @@
       >
         {{ chambre.description }}
       </p>
-      <button
-        @click="redirectToLogin(chambre.id)"
-        class="mt-6 bg-amber-200 text-black font-bold px-8 py-3 rounded-full cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
-      >
-        VOIR PLUS
-      </button>
+      <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:justify-center">
+        <button
+          @click="openModal(chambre)"
+          class="bg-amber-200 text-black font-bold px-8 py-3 rounded-full cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
+        >
+          VOIR PLUS
+        </button>
+        <button
+          @click="openReservation(chambre.titre)"
+          class="bg-amber-200 text-black font-bold px-8 py-3 rounded-full cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
+        >
+          Réserver
+        </button>
+      </div>
     </div>
     <div class="hidden lg:block lg:w-1/2">
       <img
@@ -142,6 +150,7 @@
     </div>
     <div class="flex justify-center gap-4 mt-10">
       <button
+        @click="openReservation(selectedRoom.titre)"
         class="bg-amber-200 px-8 py-3 rounded-full font-bold cursor-pointer border-2 border-transparent transition hover:scale-105 hover:border-amber-200"
       >
         Réserver
@@ -158,18 +167,40 @@
 
   </div>
 </div>
+
+<ReservationPopup
+  :isOpen="reservationOpen"
+  :itemName="reservationItemName"
+  @close="reservationOpen = false"
+  @submit="handleReservationSubmit"
+/>
+<ReservationStatusPopup
+  :isOpen="statusOpen"
+  :success="statusSuccess"
+  :message="statusMessage"
+  @close="statusOpen = false"
+/>
   </div>
 </template>
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '@/firebase'
 import ImFond1 from '@/assets/img/essai1.webp'
 import Im1 from '@/assets/img/img_room2.webp'
+import ReservationPopup from '@/components/helper/ReservationPopup.vue'
+import ReservationStatusPopup from '@/components/helper/ReservationStatusPopup.vue'
 
 const router = useRouter()
 const route = useRoute()
 const selectedRoom = ref<any>(null)
 const showModal = ref(false)
+const reservationOpen = ref(false)
+const reservationItemName = ref('')
+const statusOpen = ref(false)
+const statusSuccess = ref(true)
+const statusMessage = ref('')
 
 const openModal = (room: any) => {
   selectedRoom.value = room
@@ -180,12 +211,40 @@ const closeModal = () => {
   showModal.value = false
 }
 
-const redirectToLogin = (roomId?: number | MouseEvent) => {
-  const query: Record<string, string> = { redirect: '/rooms' }
-  if (typeof roomId === 'number') {
-    query.roomId = roomId.toString()
+const openReservation = (itemName: string) => {
+  reservationItemName.value = itemName
+  reservationOpen.value = true
+}
+
+const handleReservationSubmit = async (payload: { itemName: string; name: string; email: string; phone: string; details: string }) => {
+  console.log('Soumission réservation:', payload)
+  console.log('Firebase DB instance:', db)
+  try {
+    const reservationsCol = collection(db, 'reservations')
+    console.log('Collection reference:', reservationsCol)
+    const docRef = await addDoc(reservationsCol, {
+      itemName: payload.itemName,
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone,
+      details: payload.details,
+      createdAt: serverTimestamp()
+    })
+    console.log('Réservation enregistrée, id:', docRef.id)
+    reservationOpen.value = false
+    showModal.value = false
+    statusSuccess.value = true
+    statusMessage.value = `Votre réservation pour "${payload.itemName}" a été enregistrée avec succès.`
+    statusOpen.value = true
+    window.alert(statusMessage.value)
+  } catch (error) {
+    console.error('Erreur Firebase:', error)
+    reservationOpen.value = false
+    statusSuccess.value = false
+    statusMessage.value = error instanceof Error ? error.message : 'Impossible d\'enregistrer votre réservation pour le moment. Veuillez réessayer plus tard.'
+    statusOpen.value = true
+    window.alert(statusMessage.value)
   }
-  router.push({ name: 'login', query })
 }
 
 const openRoomFromQuery = () => {
