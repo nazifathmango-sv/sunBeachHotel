@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "dashboard-cfe41"
-  }
+  },
+  "targets": {
+    "dashboard-cfe41": {
+      "hosting": {
+        "sunbeach": [
+          "sunbeach-hotel-da37"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
